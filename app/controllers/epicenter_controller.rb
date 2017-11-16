@@ -1,4 +1,5 @@
 class EpicenterController < ApplicationController
+  include TweetsHelper
   def feed
   	@following_tweets = []
   		Tweet.all.each do |tweet|
@@ -27,6 +28,7 @@ class EpicenterController < ApplicationController
   end
   def epi_tweet
     @tweet = Tweet.create(message: params[:tweet][:message], user_id: params[:tweet][:user_id].to_i)
+     @tweet = get_tagged(@tweet)
     @tweet.save
     redirect_to root_path
   end
