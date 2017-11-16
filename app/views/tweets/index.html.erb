@@ -4,13 +4,23 @@
 
 <table class="table">
   <tbody>
-    <% @tweets.each do |tweet| %>
+    <% @tweets.reverse.each do |tweet| %>
       <tr>
         <td width="40px" style="padding-right: 0"><%= image_tag tweet.user.avatar.url, class:'thumb' %></td>
         <td>
+          <% if current_user.username == tweet.user.username %>
+            <div class="dropdown pull-right">
+              <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><%= link_to 'Edit', edit_tweet_path(tweet) %></li>
+                <li><%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
+            </div>
+          <% end %>
           <div>
             <p style="margin-bottom: 0"><strong><%= link_to '@'+tweet.user.username, show_user_path(id: tweet.user.id) %></strong></p>
-            <%= link_to tweet.message, tweet_path(id: tweet.id), style: 'color: black; text-decoration: none' %>
+            <%= link_to tweet.message.html_safe, tweet_path(id: tweet.id), style: 'color: black; text-decoration: none' %>
             <p style="color: slategrey"><sub><%= tweet.created_at.strftime('%b %e, %Y at %l:%M %p') %></sub></p>
           </div>
         </td>
@@ -18,5 +28,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>

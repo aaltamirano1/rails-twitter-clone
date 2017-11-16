@@ -37,6 +37,7 @@ body{
 	margin-top: 100px;
 	margin-bottom: 30px;
 	background-color: white;
+	padding: 0 20px 10px 20px;
 }
 
 .form-group{
@@ -103,6 +104,18 @@ nav .thumb{
 .button-danger:hover{
 	color: #333;
 }
-.table > thead > tr > th{
-	padding-left: 15px;	
+
+.tweet{
+	color: black; 
+	text-decoration: none;
+}
+
+.hashtag,
+.hashtag:visited,
+.hashtag:hover,
+.tweet-link,
+.tweet-link:visited,
+.tweet-link:hover{
+	color: #1BA39C;
+	font-weight: bold;
 }

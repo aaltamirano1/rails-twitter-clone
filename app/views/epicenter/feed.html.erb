@@ -1,20 +1,39 @@
 <h1 style="margin: 30px 0">Welcome @<%= current_user.username %></h1>
-<h3>Here is what your friends are talking about..</h3>
 
+<div class="panel panel-default">
+  <div class="panel-heading" style="height: 130px">
+     <%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
+        <%= f.text_area :message, class: "form-control", style: 'margin: 10px 0'%>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.submit "Tweet", class: "btn button-primary pull-right", style: 'margin-bottom: 10px' %>
+      <% end %>
+  </div>
 <table class="table">
   <tbody>
-		<% @following_tweets.each do |tweet| %>
+		<% @following_tweets.reverse.each do |tweet| %>
       <tr>
         <td width="40px" style="padding-right: 0"><%= image_tag tweet.user.avatar.url, class:'thumb' %></td>
         <td>
+          <% if current_user.username == tweet.user.username %>
+            <div class="dropdown pull-right">
+              <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><%= link_to 'Edit', edit_tweet_path(tweet) %></li>
+                <li><%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
+            </div>
+          <% end %>
           <div>
           <p style="margin-bottom: 0"><strong><%= link_to "@"+tweet.user.username, 
        show_user_path(id: tweet.user.id) %></strong></p>
-          <%= link_to tweet.message, tweet_path(id: tweet.id), style: 'color: black; text-decoration: none' %>
+          <%= link_to tweet.message.html_safe, tweet_path(id: tweet.id), style: 'color: black; text-decoration: none' %>
           <p style="color: slategrey"><sub><%= tweet.created_at.strftime('%b %e, %Y at %l:%M %p') %></sub></p>
           </div>
+
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>

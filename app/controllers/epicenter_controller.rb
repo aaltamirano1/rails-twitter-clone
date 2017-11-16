@@ -25,4 +25,12 @@ class EpicenterController < ApplicationController
   	
   	redirect_to show_user_path(id: params[:id])
   end
+  def epi_tweet
+    @tweet = Tweet.create(message: params[:tweet][:message], user_id: params[:tweet][:user_id].to_i)
+    @tweet.save
+    redirect_to root_path
+  end
+  def tag_tweets
+    @tag = Tag.find(params[:id])
+end
 end
