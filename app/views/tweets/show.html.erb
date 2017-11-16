@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<div style="display: flex; margin: 20px 0">
+	<%= image_tag @tweet.user.avatar.url, class:'thumb' %>
+	<h3 style="margin: 0;margin-top: 4px"><%= link_to '@'+@tweet.user.username, show_user_path(id: @tweet.user.id), style: 'color: #333; text-decoration: none' %></h3 style="margin:0">
+</div>
+
+<div class="well">
+<p>
+  <strong><%= @tweet.message %></strong>
+</p>
+</div>
+
+<% if current_user.username == @tweet.user.username %>
+  <%= link_to 'Edit', edit_tweet_path(@tweet), class: 'btn button-primary', style: 'margin-bottom: 20px' %>
+  <%= link_to 'Destroy', @tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn button-danger', style: 'margin-bottom: 20px' %>
+<% end %>

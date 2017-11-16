@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TechTalentTwitter</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+<body>
+    <nav class="navbar-fixed-top">
+	    <div class="container">
+	    	<% if user_signed_in? %>
+		      <%= link_to "Home", root_path, class: "btn button-primary" %>
+		      <%= link_to 'All Tweets', tweets_path, class: 'btn button-primary' %>
+		       <a class='btn btn-default' href="/tweets/new"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Tweet</a>
+	        <div class="dropdown pull-right">
+	          <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	            @<%= current_user.username %>
+	            <span class="caret"></span>
+	          </button>
+	          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	          	<li><%= link_to 'My Profile', show_user_path(id: current_user.id) %></li>
+	            <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+	            <li><%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %></li>
+	          </ul>
+	        </div>
+	        <%= image_tag current_user.avatar.url, class: 'pull-right thumb' %>
+	      <% else %>
+	      	<%= link_to "Log in", new_session_path(resource_name), class: 'btn button-primary' %>
+				  <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn button-primary' %>
+	      <% end %>
+	    </div>
+    </nav>
+	<div class="container main">
+    <%= yield %>
+	</div>
+</body>
+</html>

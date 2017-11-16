@@ -1,0 +1,108 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import "font-awesome";
+
+a,
+a:visited,
+a:hover{
+	background-color: white;
+	color: slategrey;
+}
+.show-tweet-link{
+	color: black;
+}
+
+body{
+	background-color: #DADFE1;
+}
+.container{
+	width: 1000px;
+}
+.main{
+	margin-top: 100px;
+	margin-bottom: 30px;
+	background-color: white;
+}
+
+.form-group{
+	max-width: 500px;
+}
+.row{
+	display: flex;
+}
+nav{
+	padding: 7px 0;
+	background-color: white;
+	border-bottom: 1px solid #ABB7B7;
+	box-shadow: 0 0 5px #ABB7B7;
+}
+
+nav .thumb{
+	width: 34px;
+	height: 34px;
+}
+
+.thumb{
+	width: 45px;
+	height: 45px;
+	margin-right: 5px;
+	border-radius: 50%;
+	border:1px solid lightgrey;
+}
+.show-user-main{
+	margin-top: 90px; 
+	padding-left: 15px;
+	max-width: 70%;
+}
+.show-user-img{
+	top: 60px;
+	left: 160px;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border:5px solid white;
+	border-radius: 50%;
+}
+.toggle-follow{
+	margin: 10px 0;
+}
+.btn{
+	border-radius: 17px;
+	font-weight: bold;
+	font-size: .95em;
+	padding: 8px 14px;
+}
+.button-primary,
+.button-primary:visited{
+	background-color: #1BA39C;
+	color: #F2F1EF;
+	border-style: none;
+}
+.button-danger,
+.button-danger:visited{
+	background-color: #F03434;
+	color: #F2F1EF;
+	border-style: none;
+}
+.button-primary:hover,
+.button-danger:hover{
+	color: #333;
+}
+.table > thead > tr > th{
+	padding-left: 15px;	
+}
