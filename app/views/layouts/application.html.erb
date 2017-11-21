@@ -5,8 +5,8 @@
     <title>TechTalentTwitter</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
 <body>
@@ -34,8 +34,19 @@
 	      <% end %>
 	    </div>
     </nav>
-	<div class="container main">
-    <%= yield %>
+	<div class="container" >
+		<div class="row" style="margin: 0 5px">
+			<div class="main">
+		    <%= yield %>
+			</div>
+			<div id="whats-hot">
+				<h3>What's Hot</h3>
+					<% hot_tags.each do |tag| %>
+					<p><%= link_to tag.phrase, tag_tweets_path(id: tag.id) %>
+					<% end %>
+				
+			</div>
+			</div>
 	</div>
 </body>
 </html>

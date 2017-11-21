@@ -1,8 +1,24 @@
+	<div class="followers-bar-shadow-top"></div>
+	<nav class="followers-bar">
+		<%= link_to followers_path(id: @user.id) do %>
+		<div>
+			<p>Followers</p>
+			<h4><%= @followers.count %></h4>
+		</div>
+		<% end %>
+		<%= link_to following_path(id: @user.id) do %>
+		<div>
+			<p>Following</p>
+			<h4><%= @following.count %></h4>
+		</div>
+		<% end %>
+	</nav>
+	<div class="followers-bar-shadow-bottom"></div>
 
 <div class="show-user-main">
 	<%= image_tag @user.avatar.url, class:'show-user-img' %>
-	<h1 style="margin-top: 110px">@<%= @user.username %></h1>
-	<h4 style="margin-top: 40px; margin-bottom: 0"><strong><%= @user.name %></strong></h4>
+	<h1 style="margin: 0;"><%= @user.name %></h1>
+	<h4 style="margin-top: 0; margin-bottom: 20px; color: grey;"><strong>@<%= @user.username %></strong></h4>
 	<% if @user.location != '' %>
 		<p><em>Based in <%= @user.location %></em></p>
 	<% end %>
@@ -10,7 +26,7 @@
 	<p><%= @user.bio %></p>
 	<br>
 	<% if current_user.following.include?(@user.id) %>
-		<%= link_to 'Unfollow', unfollow_path(id: @user.id), class: 'btn button-danger toggle-follow' %>
+		<%= link_to "Following", unfollow_path(id: @user.id), class: "btn button-primary unfollow-btn", style: "color: white" %>
 	<% elsif current_user.id == @user.id %>
 	 		<%= link_to "Edit Profile", edit_user_registration_path, class: 'btn button-primary' %>
 	<% else %>
@@ -43,7 +59,7 @@
 					<% else %>
 						<h5><%= tweet.message.html_safe %></h5>
 					<% end %>
-					<p style="color: slategrey"><sub><%= tweet.created_at.strftime('%b %e, %Y at %l:%M %p') %></sub></p>
+					<p style="color: slategrey"><sub><%= time_ago_in_words(tweet.created_at)+' ago' %></sub></p>
 				</td>
 			</tr>
 		<% end %>

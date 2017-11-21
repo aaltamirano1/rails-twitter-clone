@@ -11,6 +11,24 @@ class EpicenterController < ApplicationController
 
   def show_user
   	@user = User.find(params[:id])
+
+    @followers = []
+    User.all.each do |user|
+      if user.following.include?(@user.id)
+        @followers.push(user)
+      end
+    end
+
+    @following = []
+    User.all.each do |user|
+      if @user.following.include?(user.id)
+        @following.push(user)
+      end
+    end
+  end
+
+  def all_users
+    @users = User.order(:name)
   end
 
   def now_following
@@ -28,11 +46,31 @@ class EpicenterController < ApplicationController
   end
   def epi_tweet
     @tweet = Tweet.create(message: params[:tweet][:message], user_id: params[:tweet][:user_id].to_i)
-     @tweet = get_tagged(@tweet)
+    @tweet = get_tagged(@tweet)
     @tweet.save
     redirect_to root_path
   end
   def tag_tweets
     @tag = Tag.find(params[:id])
-end
+  end
+  def following
+    @user = User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if @user.following.include?(user.id)
+        @users.push(user)
+      end
+    end
+  end
+  def followers
+    @user =  User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if user.following.include?(@user.id)
+        @users.push(user)
+      end
+    end
+  end 
 end

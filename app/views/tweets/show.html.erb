@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div style="display: flex; margin: 20px 0">
+<div class="row" style="margin: 20px 0">
 	<%= image_tag @tweet.user.avatar.url, class:'thumb' %>
 	<h3 style="margin: 0;margin-top: 4px"><%= link_to '@'+@tweet.user.username, show_user_path(id: @tweet.user.id), style: 'color: #333; text-decoration: none' %></h3 style="margin:0">
 </div>

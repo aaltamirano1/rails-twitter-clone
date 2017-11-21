@@ -19,9 +19,10 @@
             </div>
           <% end %>
           <div>
-            <p style="margin-bottom: 0"><strong><%= link_to '@'+tweet.user.username, show_user_path(id: tweet.user.id) %></strong></p>
+            <p style="margin-bottom: 3px; color: slategrey">
+            <strong><%= link_to "@"+tweet.user.username, show_user_path(id: tweet.user.id) %></strong> <sup>.</sup> <%= time_ago_in_words(tweet.created_at)+' ago' %>
+            </p>
             <%= link_to tweet.message.html_safe, tweet_path(id: tweet.id), style: 'color: black; text-decoration: none' %>
-            <p style="color: slategrey"><sub><%= tweet.created_at.strftime('%b %e, %Y at %l:%M %p') %></sub></p>
           </div>
         </td>
       </tr>

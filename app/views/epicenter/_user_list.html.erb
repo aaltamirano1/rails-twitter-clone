@@ -1,0 +1,34 @@
+<table class='table user_list'>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr class="user_list-row">
+      <td width="40px" style="padding-right: 0"><%= image_tag user.avatar.url, class:'thumb' %></td>
+      <td class='no-underline'>      
+        <%= link_to show_user_path(id: user.id) do %>
+        <h4 style="margin: 0"><%= user.name %></h4>
+        <p>@<%= user.username %></p>
+      <% end %>  
+      <p><%= user.bio %></p>
+      </td>
+      <td>    
+      <p>
+      <% if current_user.following.include?(user.id) %>
+        <%= link_to "Following", unfollow_path(id: user.id), class: "btn button-primary unfollow-btn pull-right", style: "color: white" %>
+      <% else %>
+        <% if current_user.id != user.id %>
+          <%= link_to "Follow", now_following_path(id: user.id), class: "btn button-primary pull-right" %>
+        <% end %>
+      <% end %>
+    </p>
+    </td>
+    </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+
+
+
+
+

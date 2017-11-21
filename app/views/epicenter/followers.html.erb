@@ -1,0 +1,9 @@
+<div class='row'> 
+	<%= image_tag @user.avatar.url, class:'show-user-img' %>
+	<div style="margin: 5px 0 40px 160px;">
+		<h2>@<%= @user.username %></h2>
+		<h4 style="margin: 0;color: #1BA39C;"> Followers</h4>
+	</div>
+	
+</div>
+<%= render 'user_list' %>
