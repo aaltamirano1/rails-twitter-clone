@@ -10,43 +10,97 @@
   </head>
 
 <body>
-    <nav class="navbar-fixed-top">
-	    <div class="container">
-	    	<% if user_signed_in? %>
-		      <%= link_to "Home", root_path, class: "btn button-primary" %>
-		      <%= link_to 'All Tweets', tweets_path, class: 'btn button-primary' %>
-		       <a class='btn btn-default' href="/tweets/new"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Tweet</a>
-	        <div class="dropdown pull-right">
-	          <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-	            @<%= current_user.username %>
-	            <span class="caret"></span>
-	          </button>
-	          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	          	<li><%= link_to 'My Profile', show_user_path(id: current_user.id) %></li>
-	            <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-	            <li><%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %></li>
-	          </ul>
+  <nav class="navbar-fixed-top">
+    <div class="container">
+    	<% if user_signed_in? %>
+	      <%= link_to "Home", root_path, class: "btn button-primary" %>
+	      <%= link_to 'All Tweets', tweets_path, class: 'btn button-primary' %>
+	       <a class='btn btn-default' href="/tweets/new"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Tweet</a>
+        <div class="dropdown pull-right">
+          <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            @<%= current_user.username %>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          	<li><%= link_to 'My Profile', show_user_path(id: current_user.id) %></li>
+            <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %></li>
+          </ul>
+        </div>
+        <%= image_tag current_user.avatar.url, class: 'pull-right thumb' %>
+      <% else %>
+      	<%= link_to "Log in", new_session_path(resource_name), class: 'btn button-primary' %>
+			  <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn button-primary' %>
+			  <button class="btn btn-danger pull-right" id="tutorial-toggle">Tutorial</button>
+      <% end %>
+    </div>
+  </nav>
+
+  <% if !user_signed_in? %>
+  	<div id='tutorial'>
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	      <ol class="carousel-indicators">
+	        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+	      </ol>
+	      <div class="carousel-inner">
+	        <div class="item active">
+	          <%= image_tag 'login.PNG', class:"d-block w-100", alt:"First slide"%>
+	          <div class="carousel-caption d-none d-md-block">
+	            <h4>Login or Sign Up Page</h4>
+	            <p>User authentication using devise gem.</p>
+	          </div>
 	        </div>
-	        <%= image_tag current_user.avatar.url, class: 'pull-right thumb' %>
-	      <% else %>
-	      	<%= link_to "Log in", new_session_path(resource_name), class: 'btn button-primary' %>
-				  <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn button-primary' %>
-	      <% end %>
+	        <div class="item">
+	          <%= image_tag 'home-feed.PNG', class:"d-block w-100", alt:"Second slide"%>
+	          <div class="carousel-caption d-none d-md-block">
+	            <h4>Home Feed</h4>
+	            <p>Shows users you are following, as well as trending hashtags. All hashtags and usernames are clickable.</p>
+	          </div>
+	        </div>
+	        <div class="item">
+	          <%= image_tag 'all-tweets.PNG', class:"d-block w-100", alt:"Third slide"%>
+	          <div class="carousel-caption d-none d-md-block">
+	            <h4>All Tweets</h4>
+	            <p>Discover new people by seeing the lastest tweets including people you don't follow.</p>
+	          </div>
+	        </div>
+	        <div class="item">
+	          <%= image_tag 'user-profile.PNG', class:"d-block w-100", alt:"Fourth slide"%>
+	          <div class="carousel-caption d-none d-md-block">
+	            <h4>User Profiles</h4>
+	            <p>Edit button turns to follow/unfollow button when viewing someone else's profile. Messages written by you have the option to edit/delete here or throughout the site.</p>
+	          </div>
+	        </div>
+	      </div>
+	      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	        <span class="sr-only">Previous</span>
+	      </a>
+	      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	        <span class="sr-only">Next</span>
+	      </a>
 	    </div>
-    </nav>
+	  </div>
+  <% end %>
+
 	<div class="container" >
-		<div class="row" style="margin: 0 5px">
+		<div style="display: flex; align-items: flex-start; margin: 0 5px">
 			<div class="main">
 		    <%= yield %>
 			</div>
-			<div id="whats-hot">
-				<h3>What's Hot</h3>
+			<% if user_signed_in? %>
+				<div id="whats-hot">
+					<h3>What's Hot</h3>
 					<% hot_tags.each do |tag| %>
-					<p><%= link_to tag.phrase, tag_tweets_path(id: tag.id) %>
+						<p><%= link_to tag.phrase, tag_tweets_path(id: tag.id) %>
 					<% end %>
-				
-			</div>
-			</div>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </body>
 </html>

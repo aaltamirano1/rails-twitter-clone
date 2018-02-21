@@ -27,7 +27,7 @@ module TweetsHelper
       tags = TweetTag.all.group_by {|h| h['tag_id']}.to_a.sort_by{|x| x[1].length}
       count = 1
 
-      3.times do
+      5.times do
         tag_ids.push(tags[tags.length-count][0])
         count +=1
       end
