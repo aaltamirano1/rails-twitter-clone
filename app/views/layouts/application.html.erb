@@ -92,7 +92,7 @@
 			<div class="main">
 		    <%= yield %>
 			</div>
-			<% if user_signed_in? %>
+			<% if (user_signed_in? && hot_tags.length!=0)  %>
 				<div id="whats-hot">
 					<h3>What's Hot</h3>
 					<% hot_tags.each do |tag| %>
