@@ -92,7 +92,14 @@
 			<div class="main">
 		    <%= yield %>
 			</div>
-
+			<% if user_signed_in? %>
+				<div id="whats-hot">
+					<h3>What's Hot</h3>
+					<% hot_tags.each do |tag| %>
+						<p><%= link_to tag.phrase, tag_tweets_path(id: tag.id) %>
+					<% end %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </body>
