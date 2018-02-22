@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'devise'
 
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
