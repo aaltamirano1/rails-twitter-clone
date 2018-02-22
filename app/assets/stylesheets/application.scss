@@ -30,9 +30,11 @@ a:hover{
 body{
 	background-color: #DADFE1;
 }
-
+.container{
+	max-width: 800px;
+}
 .main{
-	min-width: 700px;
+	min-width: 760px;
 	margin-top: 100px;
 	margin-bottom: 30px;
 	background-color: white;
@@ -41,7 +43,7 @@ body{
 #tutorial{
 	margin: auto;
 	margin-top: 60px;
-	max-width: 80%;
+	max-width: 800px;
 	min-height: 400px;
 	border: 2px solid white;
 	border-radius: 15px;
@@ -52,8 +54,7 @@ body{
 	margin: auto;
 }
 .carousel .item{
-	max-height: 500px;
-	min-height: 400px;
+	height: 400px;
 	margin: 0 auto;
 }
 .carousel-caption{
@@ -109,7 +110,7 @@ nav .thumb{
 }
 .show-user-img{
 	top: 60px;
-	left: 110px;
+	left: 270px;
 	position: absolute;
 	width: 150px;
 	height: 150px;
